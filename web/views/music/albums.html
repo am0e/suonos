@@ -1,0 +1,23 @@
+<!-- 
+	Albums.
+ -->
+<ng-include src="'/res/views/directives/crumblist.html'"></ng-include>
+
+<div class="row tiles">
+	<div ng-repeat="it in resp.data.results" class="col-sm-12 col-md-3 compact">
+		<album item="it">
+		</album>
+	</div>
+	<div ng-repeat="it in resp.data.results" class="col-sm-12 col-md-3 compact">
+		<album item="it">
+		</album>
+	</div>
+	<div ng-repeat="it in resp.data.results" class="col-sm-12 col-md-3 compact">
+		<album item="it">
+		</album>
+	</div>
+	<div ng-repeat="it in resp.data.results" class="col-sm-12 col-md-3 compact">
+		<album item="it">
+		</album>
+	</div>
+</div>

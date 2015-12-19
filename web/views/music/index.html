@@ -1,0 +1,14 @@
+<div>
+Music
+</div>
+<div class="row tiles">
+	<div ng-repeat="it in appData.nav.music" class="tile col-xs-12 col-sm-6">
+		
+		<a href="{{it.url}}" class="{{it.tilebg}}">
+			<span class="term">
+				{{it.title}} {{it.termFreq}}
+			</span>
+		</a>
+	</div>
+</div>
+

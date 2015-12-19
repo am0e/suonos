@@ -1,0 +1,27 @@
+<models>
+	<analyzer name="keyword" type="org.apache.lucene.analysis.core.KeywordAnalyzer"/>
+	<analyzer name="default" type="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+	<analyzer name="numeric" type="org.apache.lucene.analysis.core.KeywordAnalyzer"/>
+	<analyzer name="date" type="org.apache.lucene.analysis.core.KeywordAnalyzer"/>
+
+	<!--
+	type$ field. This is indexed so that we can do queries for matching types.
+	 -->
+	<type name="type$" tokenized="false" stored="true" omitNorms="true" indexOptions="DOCS"/>
+	
+	<!--
+	update$ field. 
+	-->
+	<type name="update$" tokenized="false" stored="true" omitNorms="true" indexOptions="DOCS" numericType="INT"/>
+	
+	<!--
+	obj$ field. This stores a JSON object and is not indexed. 
+	 -->
+	<type name="obj$" tokenized="false" stored="true" omitNorms="true" indexOptions="NONE" docValuesType="BINARY"/>
+	
+	<model type="suonos.models.movies.Movie"/>
+	<model type="suonos.models.music.MusicAlbum"/>
+	<model type="suonos.models.music.MusicTrack"/>
+	<model type="suonos.models.playlist.Playlist"/>
+	
+</models>

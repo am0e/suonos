@@ -1,0 +1,21 @@
+<beans xmlns:p="http://okobe.com/beans/config" xmlns:s="http://okobe.com/beans/ctrl">
+	<bean class="com.github.am0e.jdi.beans.MemCacheBean">
+		<p:cacheName value="com.github.am0e.jstl.templates"/>
+		<p:ttl value="2s" s:profiles="-production"/>
+		<p:ttl value="never" s:profiles="+production"/>
+	</bean>
+	
+	<bean class="suonos.app.SuonosWebApp">
+	</bean>
+	
+	<!-- 
+	<bean class="suonos.httpserverex.AppHttpServer">
+	</bean>
+	 -->
+	 
+	<bean class="suonos.httpserver.VertxHttpServer">
+	</bean>
+	
+	<bean class="suonos.models.media.MediaTags">
+	</bean>
+</beans>

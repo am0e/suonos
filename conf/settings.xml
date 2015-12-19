@@ -1,0 +1,11 @@
+
+<settings>
+	<setting name="settings.httpserver.bind.port">
+		<default>8080</default>
+		<type>Integer</type>
+	</setting>
+	<setting name="settings.musiclib.path">
+		<default>~/Music/</default>
+		<type>StringPath</type>
+	</setting>
+</settings>

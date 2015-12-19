@@ -1,0 +1,27 @@
+<div class="media album list">
+<a href="#/music/albums/{{item.id}}">
+	<!--
+	Fucking bollocks!! You have to use ng-src here otherwise the browser will request "/{{item.imageUrl}}"
+	because the bollocks of angularjs has rendered the html before the data has come from the server.
+	One thing for sure is that you have to have the Network debug on when developing angularjs apps just
+	to see what the bollocks it's doing!! 
+	 -->
+	<span class="media-left">
+		<img ng-src="{{item.coverArtworkUrl}}?size=xs" width="64" height="64" class="media-object"/>
+	</span>
+	<span class="media-body">
+		<span class="title">
+			{{item.title}}
+		</span>
+		<span class="artists">
+			{{item.artists}}
+		</span>
+		<span class="composers">
+			{{item.composers}}
+		</span>
+		<span class="genres">
+			{{item.genres}} | {{item.year}} 
+		</span>
+	</span>
+</a>
+</div>

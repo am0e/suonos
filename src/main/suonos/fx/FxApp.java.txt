@@ -1,0 +1,78 @@
+package suonos.fx;
+
+import java.lang.reflect.Method;
+
+import com.sun.javafx.tk.TKStage;
+
+import ant8.me.commons.providers.Context;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import suonos.app.AppContainer;
+import suonos.app.AppMain;
+import suonos.models.media.PlayableItem;
+import suonos.services.SuonosServices;
+import suonos.services.player.MediaPlayerServices;
+
+/**
+ * javafx application.
+ * The start() and end() methods are called within the context of a dedicated javafx thread.
+ * 
+ * @author anthony
+ */
+public class FxApp extends Application {
+
+	public static long hWnd;
+
+	@Override
+	public void start(Stage stage) throws Exception {
+	
+		Context.enterContext(AppMain.container);
+		
+		stage.setTitle("Web View");
+        Scene scene = new Scene(new FxBrowser(),750,500, Color.web("#666970"));
+        stage.setScene(scene);
+        //stage.setFullScreen(true);
+        
+		stage.show();
+		
+		hWnd = getWindowPointer(stage);
+		
+		PlayableItem item = new PlayableItem();
+		item.setFilePath("./testmedia/bunny.mp4");
+
+		SuonosServices svcs = Context.instanceOf(SuonosServices.class);
+		MediaPlayerServices playerSvcs = svcs.getPlayerServices();
+		playerSvcs.addItem(item);
+		playerSvcs.startPlayer();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		Context.leaveContext();
+	}	
+	
+	public static void launch(String...args) {
+		Application.launch(args);
+	}
+
+	private static Long getWindowPointer(Stage stage) {
+	    try {
+	        TKStage tkStage = stage.impl_getPeer();
+	        Method getPlatformWindow = tkStage.getClass().getDeclaredMethod("getPlatformWindow" );
+	        getPlatformWindow.setAccessible(true);
+	        Object platformWindow = getPlatformWindow.invoke(tkStage);
+	        Method getNativeHandle = platformWindow.getClass().getMethod( "getNativeHandle" );
+	        getNativeHandle.setAccessible(true);
+	        Object nativeHandle = getNativeHandle.invoke(platformWindow);
+	        return (Long) nativeHandle;
+	        
+	    } catch (Throwable e) {
+	        System.err.println("Error getting Window Pointer");
+	        return null;
+	    }
+	}
+}
+

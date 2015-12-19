@@ -1,0 +1,110 @@
+<!--
+Album details 
+ -->
+<ng-include src="'/res/views/directives/crumblist.html'"></ng-include>
+ 
+<div class="album detail">
+	<div class="media">
+		<span class="media-left">
+			<img ng-src="{{album.coverArtworkUrl}}?size=sm" width="250" height="250" class="media-object"/>
+		</span>
+		<div class="media-body">
+			<div class="title">
+				{{album.title}}
+			</div>
+			<div ng-If="tags.artists">
+				<taglist qf="'album_artists_u'" data="album.tags.artists"></taglist>
+			</div>
+			<div ng-If="tags.composers">
+				<span>
+					Composed by
+				</span> 
+				<taglist qf="'album_composers_u'" data="album.tags.composers"></taglist>
+			</div>
+			<div ng-If="tags.genres">
+				<taglist qf="'album_genres_u'" data="album.tags.genres"></taglist>
+				<span ng-if="tags.year">
+					| {{album.tags.year|tag}} 
+				</span>
+			</div>
+			<div ng-If="tags.year && !tags.genres">
+				{{album.tags.year|tag}}
+			</div>
+			<div class=actions>
+				<a href="/ws/albums/-{{album.id}}/download" title="Download Album">
+					<i class="fa fa-2x fa-download"></i> 
+				</a>
+				<a href="" title="Play Album">
+					<i class="fa fa-2x fa-play" ng-click="mediaPlayer.playObject(album)"></i> 
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<table class="trackList listing">
+		<thead>
+			<tr>
+				<th class="trackNo">
+				</th>
+				<th class="trackTitle">
+					Track
+				</th>
+				<th class="length">
+					Length
+				</th>
+				<th class="bitRate">
+					Bit Rate
+				</th>
+				<th class="actions">
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="it in album.tracks" class="track">
+				<td class="trackNo">
+					{{it.trackNumber}}
+				</td>
+				<td>
+					<div class="trackTitle">
+						{{it.title}}
+					</div>
+					<div ng-If="!tags.artists" class="artist">
+						<taglist qf="'album_artists_u'" data="it.tags.artists"></taglist>
+					</div>
+					<div ng-If="!tags.composers" class="composer">
+						<taglist qf="'album_composers_u'" data="it.tags.composers"></taglist>
+					</div>
+					<div ng-If="!tags.genres">
+						<taglist qf="'album_genres_u'" data="it.tags.genres"></taglist>
+						<span ng-if="it.tags.year">
+							| {{it.tags.year|tag}} 
+						</span>
+					</div>
+					<div ng-If="!tags.year && tags.genres">
+						{{it.tags.year|tag}}
+					</div>
+				</td>
+				<td>
+					<div class="length">
+						{{it.length|timelen}} 
+					</div>
+				</td>
+				<td>
+					<div class="bitRate">
+						{{it.bitRate}} Kbs 
+					</div>
+				</td>
+				<td>
+					<div class=actions>
+						<a href="/ws/tracks/-{{it.id}}/download" title="Download Track">
+							<i class="fa fa-download"></i> 
+						</a>
+						<a href="" title="Play Track">
+							<i class="fa fa-play" ng-click="mediaPlayer.playObject(it)"></i> 
+						</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

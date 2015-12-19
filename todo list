@@ -1,0 +1,53 @@
+
+
+Login in screen.
+
+Search via album or track?
+  album:
+	need a composite "search" field for searching:
+	ie seach "bach", or search "schiff" should return all albums containing terms bach, schiff, etc.
+	"<artists> <composers> <arrangers> <album title>"
+  track:
+	"artists composers arrangers title"
+	Could search for tracks and then get the album id from lucene????
+
+	Problem is track_title is all lower case!!! ?? The lucene suggests module returns the fiend contents
+	but these are lower case!
+	
+Add execAsync() to Request??? - it calls down to vertx. handles exception to set the status code.
+
+
+
+JsonObjectWriter.includeRelation()
+	Needs to be refactored.
+	Problem is:
+	myAdaptor(jw, musicAlbum) {
+		if (jw.includeRelation("tracks")) {
+			jw.genValue("tracks", musicAlbum.tracks());
+		}
+	}
+	It assumes tracks is toplevel.
+	What if json response is:
+	data: {
+		queryResponse: {
+			type: "album",
+			tracks: {
+			}
+		}
+	}
+	The above adaptor code will fail because path is queryResponse.tracks.
+
+
+
+
+Construct the Git repo with only the current content
+
+rm -rf .git
+git init
+git add .
+git commit -m "Initial commit"
+
+Step 3: push to GitHub.
+
+git remote add origin <github-uri>
+git push -u --force origin master

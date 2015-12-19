@@ -1,0 +1,10 @@
+<div class="row tiles">
+	<div ng-repeat="it in appData.nav.main" class="tile col-xs-12 col-sm-6">
+		<a href="#{{it.href}}" class="{{it.tilebg}}">
+			<i class="fa fa-2x {{it.icon}}"></i>
+			<span class="term">
+				{{it.title}}
+			</span>
+		</a>
+	</div>
+</div>

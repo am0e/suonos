@@ -1,0 +1,56 @@
+package suonos.fx;
+
+import java.lang.reflect.Method;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.layout.Region;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+class FxBrowser extends Region {
+	 
+    WebView webView;
+    WebEngine webEngine; 
+     
+    public FxBrowser() {
+    	webView = new WebView();
+    	webEngine = webView.getEngine();
+    	
+    	webView.setFontSmoothingType(FontSmoothingType.LCD);
+
+    	Path path = Paths.get("./web/main.html");
+    	URI uri = path.toAbsolutePath().toUri();
+    	String url = uri.toString();
+    	
+    	url = "http://127.0.0.1:8080/main.html";
+
+    	//Path path = Paths.get("file:./web/main.html");
+    	//String path = "file:./web/main.html";
+    	
+        // load the web page
+    	webEngine.load(url);
+       
+        //add the web view to the scene
+        getChildren().add(webView);
+    }
+    
+    @Override protected void layoutChildren() {
+        double w = getWidth();
+        double h = getHeight();
+        layoutInArea(webView, 0, 0, w, h, 0, HPos.CENTER, VPos.CENTER);
+    }
+ 
+    @Override protected double computePrefWidth(double height) {
+        return 750;
+    }
+ 
+    @Override protected double computePrefHeight(double width) {
+        return 500;
+    }
+}
+

@@ -1,0 +1,534 @@
+
+body {
+	padding-top: 70px; 
+}
+
+html {     
+	-webkit-font-smoothing: antialiased;
+}
+
+.navbar-default {
+	min-height: 40px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:ACTIVE, a:FOCUS {
+	color: inherit;
+	outline: 0;
+	text-decoration: none;
+}
+
+
+/*
+ -----------------------------------------------------------------------------------------------
+ Main Navigation.
+ -----------------------------------------------------------------------------------------------
+*/
+
+.mainNav {
+	width:100%;
+	box-sizing: border-box;
+}
+
+.mainNav ul {
+	position: relative;
+	margin: 0px auto;
+	padding: 0px;
+	max-width: 1000px;
+	list-style: outside none none;
+	
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: flex;
+	
+	-webkit-flex-flow: row wrap;
+	-moz-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap;
+	
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+}
+
+.mainNav ul li {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin: 0px;
+	text-align: center;
+	height:20px;
+	box-sizing: border-box;
+	max-width: 100%;	
+}
+
+.mainNav ul li i {
+	font-size:150%;
+}
+
+/*
+ -----------------------------------------------------------------------------------------------
+ Tiles
+ -----------------------------------------------------------------------------------------------
+ */
+ .tiles {
+}
+
+.tiles .compact {
+	padding-left:10px;
+	padding-right:10px;	
+}
+
+/* 
+ Fix for albums.
+ */
+.tiles .col-md-3:nth-child(4n+1) {
+	clear:left;
+}
+
+.tile {
+	padding:0px;
+	vertical-align: middle;
+}
+
+.tile a {
+	display:block;
+	text-align: center;
+	margin:10px;
+	padding:18px;
+	padding-left:10px;
+	padding-right:10px;
+	min-height: 7em;
+}
+
+.tile a {
+	text-transform: capitalize;
+}
+	
+.tile span {
+	display: block;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.tile i {
+	padding-bottom:10px;	
+}
+
+.tile a .term {
+	font-size:2em;
+}
+
+.tile a:hover {
+	text-decoration: none;
+	opacity:0.75;
+}
+
+.tile .t1 {
+	background-color: #8F99EF;
+	color: #eeeeee;
+} 
+
+.tile .t2 {
+	background-color: #B68FEF;
+	color: #eeeeee;
+} 
+
+.tile .t3 {
+	background-color: #EF8F99;
+	color: #eeeeee;
+} 
+
+.tile .t4 {
+	background-color: #EFB68F;
+	color: #eeeeee;
+} 
+
+.tile .t5 {
+	background-color: #99EF8F;
+} 
+
+.tile .t5 {
+	background-color: #99EF8F;
+} 
+
+.tiles tile .freq {
+	margin-top:5px;
+	font-size:75%;
+}
+
+
+.tiles .az a {
+	background-color: #404040;
+}
+
+.tiles .az .term {
+	font-size:18px;	
+	color: #eeeeee;
+	font-weight: bolder;
+}
+
+.tiles .az.sm .term {
+	font-size: 15px;
+}
+
+.tiles .az .terml {
+	display: inline-block;
+	vertical-align: text-bottom;
+	background-color: #8F99EF;
+	width:35px;
+	height:35px;
+	text-align: center;
+	font-size:20px;
+	line-height:35px;
+	color: #eeeeee;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+
+
+/*
+.tiles .az a {
+	background-color: transparent !important;
+	padding:5px;
+	text-align: left;
+}
+
+.tiles .az .term {
+	display: inline-block;
+	vertical-align: middle;
+	background-color: #8F99EF;
+	padding:5px;
+	width:40px;
+	height:40px;
+	text-align: center;
+}
+
+.tiles .az .freq {
+	display: inline-block;
+	vertical-align: top;
+	margin-left:5px;
+}
+*/
+
+
+.tiles .az:nth-child(4n+1) .alt, .bkgd_0 {
+	background-color: #8F99EF !important;
+}
+
+.tiles .az:nth-child(4n+2) .alt, .bkgd_1 {
+	background-color: #B68FEF !important;
+}
+
+.tiles .az:nth-child(4n+3) .alt, .bkgd_2 {
+	background-color: #EF8F99 !important;
+}
+
+.tiles .az:nth-child(4n+4) .alt, .bkgd_3 {
+	background-color: #EFB68F !important;
+}
+
+/*
+ -----------------------------------------------------------------------------------------------
+ -----------------------------------------------------------------------------------------------
+ */
+
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 32px;
+  background-color: #777777;
+  color: #fefefe; 
+  border-bottom:2px;
+  border-color: white;
+}
+
+.page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.page.ng-enter,
+.page.ng-leave {
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.page.ng-enter {
+    left: 100%; /*at the start time is out of the screen*/
+}
+
+.page.ng-enter-active {
+    left: 0; /* at the final time is in the normal positon*/
+}
+
+.page.ng-leave {
+    left: 0; /* at the start time is in the normal position*/
+}
+
+.page.ng-leave-active {
+    left: -100%; /* at the final time is out of the screen*/
+}
+
+.album.list {
+	
+}
+
+.album.list {
+	display: block;
+	width: 100%;
+	min-height: 100px;
+}
+
+.album.list:hover {
+	background-color: #404040;
+}
+
+.album.list a:hover {
+	text-decoration: none;
+}
+
+.album.list a {
+	display: block;
+	width: 100%;
+	border-bottom: none;
+	padding:10px;
+}
+
+.album.list img {
+	width: 64px;
+	height: 64px;
+	position: relative;
+	margin-top:4px;
+	float:left;
+}
+
+.album.list .imgw {
+	height:75px;	
+}
+
+.album.list .media-body {
+	padding-left:10px;
+	width: auto;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.album.list span {
+	display: block;
+}
+
+.album.list .title {
+	font-size: 100%;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	color: #eeeeee;
+  	
+}
+
+.album.list .artists {
+	font-size: 95%;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.album.list .composers {
+	font-size: 95%;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.album.list .genres {
+	font-size: 95%;
+	display: inline;
+	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+.album.list .year {
+	font-size: 95%;
+	display: inline;
+}
+
+/*
+ -----------------------------------------------------------------------------------------------
+ Album detail page.
+ -----------------------------------------------------------------------------------------------
+ */
+.album.detail {
+	margin-top:20px;
+}
+
+.album.detail .media .title {
+	font-size:170%;
+	padding-bottom:5px;	
+}
+
+.album.detail .media .actions {
+	margin-top:10px;
+}
+
+.album.detail .media i {
+	margin-right:10px;
+}
+
+.trackList {
+	margin-top:20px;
+	width:100%;
+	text-align: top;
+}
+
+.trackList th {
+	border-bottom: 1px solid #666666;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.trackList td {
+	vertical-align: top;
+	width: auto;
+	padding:5px;
+}
+
+.trackList .trackNo {
+	width:2em;
+}
+
+.trackList .length {
+	text-align: right;
+	width:5em;
+}
+
+.trackList .bitRate {
+	text-align: right;
+	width:5em;
+}
+
+.trackList .actions {
+	text-align: left;
+	padding-left:20px;
+	width:auto;
+}
+
+.trackList .actions i {
+	padding-right:5px;
+}
+
+
+/*
+ -----------------------------------------------------------------------------------------------
+ tag list
+ -----------------------------------------------------------------------------------------------
+ */
+.taglist {
+  display: inline;
+  list-style: none;
+  margin:0px;
+  padding:0px;
+}
+
+.taglist li {
+  display: inline;
+}
+
+.taglist li:after {
+    content: ",";
+}
+
+.taglist li:last-child:after {
+    content: "";
+}
+
+/*
+ -----------------------------------------------------------------------------------------------
+ breadcrumb list
+ -----------------------------------------------------------------------------------------------
+ */
+.crumblist {
+  	list-style: none;
+  	margin:0px;
+  	padding:0px;
+	white-space: nowrap;
+  	text-overflow: ellipsis;
+  	overflow: hidden;
+  	padding-bottom:5px;
+}
+
+.crumblist li {
+  display: inline;
+}
+
+.crumblist li:after {
+    content: "\00BB";
+}
+
+.crumblist li:last-child:after {
+    content: "";
+}
+
+/*
+ -----------------------------------------------------------------------------------------------
+ Audio Player custom component.
+ Taken from an excellent article at:
+ http://www.alexkatz.me/html5-audio/building-a-custom-html5-audio-player-with-javascript/
+ Kudos goes to original author!!!
+ -----------------------------------------------------------------------------------------------
+ */
+#audioPlayer {
+}
+
+#audioPlayer i {
+	vertical-align: text-top;
+	margin-right:2px;
+	margin-left:2px;
+	display: inline-block;
+	text-align: center;
+	padding:4px;
+}
+
+#audioPlayer .timeinfo {
+	display: inline-block;
+}
+
+#audioPlayer i:HOVER {
+	cursor: pointer;
+}
+
+#audioPlayer .timeline {
+	width: 400px;
+	height: 12px;
+	background: #333333;
+	border-radius: 10px;
+	display: inline-block;
+}
+ 
+#audioPlayer .playhead {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-top: 1px;
+	margin-left:1px;
+	background: #2CC185;
+} 
+ 

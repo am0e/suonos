@@ -1,0 +1,91 @@
+<routes>
+	<!-- 
+	Define the servlet path 
+	-->
+	<default-host value="127.0.0.1"/>
+	
+	we want: 
+	void myaction() {
+		render to writer.
+	}
+	how do we render default?
+	Object myaction() {
+		return ""; empty string, render "myaction"
+		return ";
+		return "render:view"
+	}
+	
+	// Anna, Ali, Jeniene.
+	// Richard, Mirko, Andrew, James
+	//
+	1) use chained default response handlers? Store per mapping - OkobeDefaultResponseHandler, ViewDefaultResponseHandler, 
+	2) use a code, in accept-header - expect="text/html" - can then select on expected result? 
+	3)
+	
+	<route path="/ws">
+		interfaces?
+		routes.addPreRenderHandler( (ctx) -> {
+			//
+		)};
+		
+		routes.addRequestHandler("/ws", CookieHandler.class);
+		routes.addRequestHandler("/ws", SessionHandler.class);
+		routes.addRequestHandler("/ws", WsController.class);  
+		on /ws
+		get requestHandlers[] =
+			CookieHandler
+			SessionHandler
+			WsController
+		
+		
+		preRenderHandler(ActionCtx ctx) {
+			ctx.next(); 
+		}
+		RequestHandler
+		PreRequestHandler
+		
+		
+		<handler class="Decorator"/>
+	</route>
+	
+	<route path="/ws">
+		<accept-header ignore="true"/>
+		<decorator class="suonos.controllers.DefaultDecorator"/>
+		<named-url name="#resource-not-found" value="/ws/resource-not-found"/>
+		<named-url name="#unhandled-exception" value="/ws/server-error"/>
+		<handler class="suonos.controllers.WsController"/>
+	</route>		
+	
+	<route path="/">
+		<accept-header ignore="false"/>
+		<decorator class="suonos.controllers.DefaultDecorator"/>
+		<named-url name="#signin" value="/signin"/>
+		<named-url name="#resource-not-found" value="/resource-not-found"/>
+		<named-url name="#unhandled-exception" value="/server-error"/>
+		<handler class="suonos.controllers.AppController"/>
+	</route>		
+	
+	<route path="/ws/albums">
+		<handler class="suonos.controllers.AlbumsController"/>
+	</route>
+	
+	<route path="/ws/facets">
+		<handler class="suonos.controllers.FacetsController"/>
+	</route>
+	
+	<route path="/ws/tracks">
+		<handler class="suonos.controllers.TracksController"/>
+	</route>
+	
+	<route path="/ws/search">
+		<handler class="suonos.controllers.SearchController"/>
+	</route>
+	
+	<route path="/ws/playlists">
+		<handler class="suonos.controllers.PlaylistsController"/>
+	</route>
+	
+	<route path="/ws/movies">
+		<handler class="suonos.controllers.MoviesController"/>
+	</route>
+</routes>

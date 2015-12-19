@@ -1,0 +1,14 @@
+.gradle
+.classpath
+.project
+.settings
+target
+out
+*.class
+*.tmp
+*.log
+packages
+data
+docs
+testmedia
+.vertx

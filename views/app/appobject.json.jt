@@ -1,0 +1,132 @@
+<script>
+//<![CDATA[ 
+var appData = {
+
+   desc: {
+      	music_az_albums: {
+	 	title: "Albums [A-Z]",
+	 	url: "#/music/az/albums",
+	 	query: "/facets?fields=album_title_a",
+	 	href: "#/music/albums?qf=album_title_a&q=1&te={te}",
+ 	    href_all: "#/music/albums",
+	 	tilebg: "t1",
+	 	cn: "az",
+	 	plural: "Albums"
+      },
+
+      music_az_artists: {
+	 	title: "Artists [A-Z]",
+	 	url: "#/music/az/artists",
+	 	href: "#/music/az/artists/{qt}",
+	 	query: "/facets?fields=album_artists_a",
+ 	 	tilebg: "t2",
+	 	cn: "az",
+	 	plural: "Artists"
+      },
+
+      music_az_genres: {
+	 	title: "Genres [A-Z]",
+	 	url: "#/music/az/genres",
+	 	href: "#/music/az/genres/{qt}",
+	 	query: "/facets?fields=album_genres_a",
+	 	tilebg: "t3",
+	 	cn: "az",
+	 	plural: "Genres"
+      },
+
+      music_az_composers: {
+	 	title: "Composers [A-Z]",
+	 	url: "#/music/az/composers",
+	 	href: "#/music/az/composers/{qt}",
+	 	query: "/facets?fields=album_composers_a",
+	 	tilebg: "t4",
+	 	cn: "az",
+	 	plural: "Composers"
+      },
+
+      // music/az/artists/R
+      //
+      music_az_artists_f: {
+	 	title: "Artists [A-Z]",
+	 	p: "{p}",
+	 	href: "#/music/albums?qf=album_artists_u&q=1&te={te}",
+	 	query: "/facets?fields=album_artists&filter={q}",
+	 	cn: "az sm",
+      },
+
+      music_az_genres_f: {
+	 	title: "Genres [A-Z]",
+	 	p: "{p}",
+	 	href: "#/music/albums?qf=album_genres_u&q=1&te={te}",
+	 	query: "/facets?fields=album_genres&filter={q}",
+	 	cn: "az",
+      },
+
+      music_az_composers_f: {
+	 	title: "Composers [A-Z]",
+	 	p: "{p}",
+	 	href: "#/music/albums?qf=album_composers_u&q=1&te={te}",
+	 	query: "/facets?fields=album_composers&filter={q}",
+	 	cn: "az sm",
+      },
+
+      // music/albums
+      //
+      music_albums: {
+	 	title: "Albums [A-Z]",
+	 	href: "#/music/albums?p={p}",
+	 	query: "/albums?q={q}&target=list",
+	 	tilebg: "t1",
+      }
+   },
+
+   nav: {
+      main: [ 
+      	{
+	 		title: "Music",
+	 		href: "/music",
+	 		icon: "fa-file-audio-o",
+	 		tilebg: "t1"
+      	}, {
+	 		title: "Videos",
+	 		href: "/videos",
+	 		icon: "fa-file-video-o",
+	 		tilebg: "t2"
+      	} ],
+
+      /*
+       * Configuration for the first music browse page.
+       * User can browse albums, artists, genres, composers by A-Z
+       */
+      music: [
+	  	"@music_az_albums",
+	  	"@music_az_artists",
+	  	"@music_az_genres",
+	  	"@music_az_composers"
+	  ]
+   },
+		
+   qfmap: {
+      // qf=album_artists_u
+      album_artists_u: {
+	     ft: "Artists"
+      },
+      album_genres_u: {
+	     ft: "Genres"
+	  },
+	  album_composers_u: {
+	     ft: "Composers"
+	  },
+	  album_title_a: {
+	     ft: "Title"
+	  }
+   },
+   
+   bindList: [
+      "nav.music"
+   ],
+   
+   musicLib: ${musicLib:emit('json')}
+};
+//]]>
+</script>

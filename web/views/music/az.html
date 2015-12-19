@@ -1,0 +1,22 @@
+<!-- 
+	A-Z list for Genres, Artists, Albums, etc.
+ -->
+ 
+<ng-include src="'/res/views/directives/crumblist.html'"></ng-include>
+
+<div class="row tiles">
+	<div ng-repeat="it in resp.fieldCounts[0].terms" class="tile col-xs-12 col-sm-2 {{desc.cn}}">
+		<a href="{{href(it)}}" class="">
+			<span class="terml bkgd_{{it.seq%4}}">{{it.terml}}</span>
+			<span class="term" ng-if="!AtoZ">{{it.term}}</span>
+			<span class="freq">{{it.docFreq}} Album(s)</span>
+		</a>
+	</div>
+	<div class="tile col-xs-12 col-sm-2 ndx {{desc.cn}}" ng-If="desc.plural">
+		<a href="{{href('*')}}" class="t1">
+			<span class="terml alt">*</span>
+			<span class="term" ng-if="!AtoZ">All</span>
+			<span class="freq">All {{desc.plural}}</span>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,179 @@
+package suonos.lucene;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.lucene.document.Document;
+import org.apache.lucene.index.IndexOptions;
+
+import ant8.me.commons.AntLib;
+import ant8.me.commons.beans.BeanInfo;
+import ant8.me.commons.beans.BeanUtils;
+import ant8.me.commons.beans.FieldInfo;
+import suonos.lucene.facet.IndexedField;
+import suonos.models.annotations.IndexField;
+import suonos.models.annotations.Threaded;
+
+@Threaded
+public class xxDocumentFields {
+	
+	/**
+	 * Class type.
+	 */
+	private final Class<?> claz;
+	
+	/**
+	 * Map of {@link IndexedField} objects, indexed by the field name.
+	 */
+	private final Map<String,IndexedField> indexedFieldsMap;
+	
+	/**
+	 * List of {@link IndexField} objects.
+	 */
+	private final IndexedField[] indexedFields;
+	
+	/**
+	 * Parent class.
+	 */
+	final DocumentFields parent;
+	
+	/**
+	 * List of fields that implement the {@link DynamicIndexedFields} interface. These objects
+	 * index themselves at runtime. The fields vary from document to document.
+	 */
+	private final FieldInfo[] dynamicFields;
+
+	public DocumentFields(ModelTypes modelTypes, Class<?> documentType, DocumentFields parent) {
+		this.claz = documentType;
+		this.indexedFieldsMap = AntLib.newHashMap();
+		List<FieldInfo> dynamicFieldObjects = AntLib.newList();
+		List<DocField> indexedFields = AntLib.newList();
+		
+		this.parent = parent;
+		
+    	BeanInfo beanInfo = BeanInfo.forClass(documentType);
+
+        // Process each acccessible field in this class.
+        //
+        for (FieldInfo mf: beanInfo.getDeclaredPublicFields()) {
+        	// Is the field readable and not transient.
+        	//
+        	if (mf.isReadable() && !mf.isTransient()) {
+        		
+        		// Get the index field.
+        		//
+        		IndexField ndxFld = mf.getAnnotation(suonos.models.annotations.IndexField.class);
+
+        		if (ndxFld==null) {
+        			// No @IndexField. Try to see if the field is compatible with DynamicIndexableFields
+        			//
+        			if (DynamicIndexedFields.class.isAssignableFrom(mf.getActualType())) {
+            			dynamicFieldObjects.add(mf);
+        			}
+        			continue;
+        		}
+        		
+        		if (ndxFld.indexed()==false && ndxFld.stored()==false) {
+        			continue;
+        		}
+
+                // Get Non primitive type.
+                //  Ie both long and Long map to Long.class
+                //
+                Class<?> fieldType = BeanUtils.getNonPrimitiveClass(mf.getType());
+                
+                DocField fld = new DocField(fieldType, mf.getName());
+                
+                if (ndxFld.indexed()==false) {
+                	fld.setIndexOptions(IndexOptions.NONE);
+                } else {
+                	fld.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
+                }
+                
+                fld.setStored(ndxFld.stored());
+                fld.setOmitNorms(ndxFld.omitNorms());
+                fld.setTokenized(false);
+            	fld.setSortable(ndxFld.sortable());
+            	fld.setMultiValue(ndxFld.multiValue());
+            	fld.setPrefixed(ndxFld.prefixed());
+            	
+                if (fieldType==String.class) {
+                	fld.setTokenized(ndxFld.tokenized());
+                }
+                
+            	if (ndxFld.idField()) {
+            		fld.setTokenized(false);
+            	}
+
+                indexedFieldsMap.put(mf.getName(), fld);
+                indexedFields.add(fld);
+        	}
+        }
+
+        this.indexedFields = indexedFields.toArray(new IndexedField[0]);
+        this.dynamicFields = dynamicFieldObjects.toArray(new FieldInfo[0]);
+	}
+
+	public DocumentFields getParent() {
+		return parent;
+	}
+
+	public IndexedField[] getIndexedFields() {
+		return this.indexedFields;
+	}
+	
+	public IndexedField getIndexedField(String fieldName) {
+		return indexedFieldsMap.get(fieldName);
+	}
+
+	public void saveToLuceneDoc(final StatementContext context, final Object obj, final Document doc ) {
+		
+		List<ReflectionField> fields = context.getReflectionFields(this);
+		
+		for (ReflectionField it: fields) {
+			// Get the value from the bean.
+			//
+           	addValue(doc, it.indexedField, it.fieldInfo.callGetter(obj));
+		}
+
+		// Setup a context for the dynamic indexable fields.
+		//
+		DynamicIndexedFieldCtx ctx = new DynamicIndexedFieldCtx() {
+			public void indexField(IndexedField indexedField, String value) {
+	           	addValue(doc, indexedField, value);
+			}
+		};
+		
+		// Now serialize the dynamic fields.
+		//
+		for (FieldInfo it: getDynamicFields()) {
+			// Using reflection get the object. May be null!
+			//
+            DynamicIndexedFields iface = (DynamicIndexedFields) it.callGetter(obj);
+            if (iface!=null) {
+            	iface.indexFields(ctx);
+            }
+		}
+
+		if (parent==null) {
+			if (obj instanceof DynamicIndexedFields) {
+				((DynamicIndexedFields) obj).indexFields(ctx);
+			}
+		}
+	}
+	
+	private void addValue(Document doc, IndexedField indexedField, Object fv) {
+    	indexedField.addFieldToDocument(doc, fv);
+	}
+
+	public FieldInfo[] getDynamicFields() {
+		return dynamicFields;
+	}
+
+	/**
+	 * @return the claz
+	 */
+	public Class<?> getClaz() {
+		return claz;
+	}
+}

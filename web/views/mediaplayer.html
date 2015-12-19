@@ -1,0 +1,70 @@
+<!--
+Audio player component. 
+ -->
+<div id="audioPlayer">
+	<i class="btn backBtn fa fa-backward" onclick="suonosApp.mediaPlayer.backBtn()" title="Previous Track"></i>
+	<i class="btn forwardBtn fa fa-forward" onclick="suonosApp.mediaPlayer.forwardBtn()" title="Next Track"></i>
+	<i class="btn playBtn fa fa-play" onclick="suonosApp.mediaPlayer.playPauseBtn()" title="Play"></i>
+	<div class="timeinfo">0:00</div>
+	<div class="timeline">
+		<div class="playhead"></div>
+	</div>
+
+	<table class="trackList listing">
+		<thead>
+			<tr>
+				<th class="trackNo">
+				</th>
+				<th class="trackTitle">
+					Track
+				</th>
+				<th class="length">
+					Length
+				</th>
+				<th class="bitRate">
+					Bit Rate
+				</th>
+				<th class="actions">
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="it in mediaPlayer.playlist" class="track">
+				<td class="trackNo">
+					{{it.trackNumber}}
+				</td>
+				<td>
+					<div class="trackTitle">
+						{{it.title}}
+					</div>
+					<taglist type="'artists'" data="it.tags.artists"></taglist>
+					<taglist type="'composers'" data="it.tags.composers"></taglist>
+					<taglist type="'genres'" data="it.tags.genres"></taglist>
+					{{it.tags.year|tag}} 
+				</td>
+				<td>
+					<div class="length">
+						{{it.length|timelen}} 
+					</div>
+				</td>
+				<td>
+					<div class="bitRate">
+						{{it.bitRate}} Kbs 
+					</div>
+				</td>
+				<td>
+					<div class=actions>
+						<a href="/ws/tracks/-{{it.id}}/download" title="Download Track">
+							<i class="fa fa-download"></i> 
+						</a>
+						<a href="" title="Play Track">
+							<i class="fa fa-play" ng-click="media.playTrack(it)"></i> 
+						</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</div>
+ 

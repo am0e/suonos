@@ -1,0 +1,54 @@
+/*
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+*/
+
+body {
+	background-color: #333333;
+	color: #bfbfbf;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: 'Roboto', "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+a {
+	color: #aaaaaa;
+	text-decoration: none;
+}
+
+.media-object {
+	background-color: #444444;  /* For no image */
+}
+
+a:hover {
+	color: #eeeeee;
+	text-decoration: none;
+}
+
+	
+a.link {
+	text-decoration: none;
+	border-bottom: 1px dotted #555;
+}
+
+a.link:hover {
+	text-decoration: underline;
+	border-bottom: none;
+}
+
+.navbar-default {
+	background-color: #777777;
+}
+
+
+.album.detail .hdr .title {
+	color: #fefefe;	
+}
+
+.album.detail .hdr {
+    background-color: #3f3f3f;
+    padding: 10px;
+}
+
+.trackList tr:nth-child(even) {
+    background-color: #3f3f3f;
+}
+	

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" ng-app="suonosApp" xmlns:s="jtl:core">
+<head>
+  	<meta charset="utf-8"/>
+  	<title>My HTML File</title>
+  	<link href="/res/css/bootstrap.min.css" rel="stylesheet"/>
+  	<link href="/res/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+  	<link href="/res/css/suonos.app.css" rel="stylesheet"/>
+  	<link href="/res/css/suonos.scheme.css" rel="stylesheet"/>
+  	<link rel="shortcut icon" href="/res/favicon.ico" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<div ng-controller="FrameCtrl">
+	<nav class="navbar navbar-default navbar-fixed-top">
+  		<div class="container">
+		Suonos
+    	...
+  		</div>
+  		<nav class="mainNav">
+	  		<ul>
+		  		<li>
+		  			<a href="#/home">
+						<i class="btn backBtn fa fa-home" title="Home"><span>Home</span></i>
+					</a>
+		  		</li>
+		  		<li>
+		  			<a href="#/mediaplayer">
+						<i class="btn backBtn fa fa-volume-up" title="Audio Player"><span></span></i>
+					</a>
+		  		</li>
+		  		<li ng-controller="Search">
+			  		<form ng-submit="searchSubmit()">
+			  			<input type=search results=7 autosave=searchbox name=q 
+			  				list="searchdata" ng-model="q" ng-change="searchChange()"/>
+	  					<datalist id=searchdata></datalist>
+	  				</form>
+		  		</li>
+		  		<li>
+		  			<a href="/#settings">
+					<i class="btn backBtn fa fa-navicon" title="Settings"><span></span></i>
+					</a>
+		  		</li>
+	  		</ul>
+  		</nav>
+  		<audio id="audio" preload="auto" controls></audio>
+		<!--
+		Audio player component. 
+		 -->
+		<div id="audioPlayer">
+			<i class="btn backBtn fa fa-backward" onclick="suonosApp.mediaPlayer.backBtn()" title="Previous Track"></i>
+			<i class="btn forwardBtn fa fa-forward" onclick="suonosApp.mediaPlayer.forwardBtn()" title="Next Track"></i>
+			<i class="btn playBtn fa fa-play" onclick="suonosApp.mediaPlayer.playPauseBtn()" title="Play"></i>
+			<div class="timeinfo">0:00</div>
+			<div class="timeline">
+				<div class="playhead"></div>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container">
+		<div class="top">
+			Suonos
+		</div>
+		<div style="display: table-cell;text-align: right">
+			<i class="fa fa-2x fa-bars"></i>
+		</div>
+		<div ng-view></div>
+	</div>
+</div>
+
+<script src="/res/js/angular.js"></script>
+<script src="/res/js/angular-animate.min.js"></script>
+<script src="/res/js/angular-route.min.js"></script>
+<script src="/res/js/cash.js"></script>
+<script src="/res/js/aja.min.js"></script>
+<s:include template="appobject.json"/>
+<script src="/res/js/app/MediaPlayer.js"></script>
+<script src="/res/js/app/SearchBox.js"></script>
+<script src="/res/js/app/App.js"></script>
+</body>
+</html>

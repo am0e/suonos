@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="suonosApp">
+<head>
+  	<meta charset="utf-8">
+  	<title>My HTML File</title>
+  	<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+  	<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+  	<link href="/css/suonos.app.css" rel="stylesheet"/>
+  	<link href="/css/suonos.scheme.css" rel="stylesheet"/>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+  		<div class="container">
+		Suonos
+    	...
+  	</div>
+	</nav>
+	
+	<div class="container" ng-controller="DefaultCtrl">
+		<div class="top">
+			Suonos
+		</div>
+		<div style="display: table-cell;text-align: right">
+			<i class="fa fa-2x fa-bars"></i>
+		</div>
+	
+		<div ng-view></div>
+	</div>
+
+  	<script src="/js/angular.js"></script>
+  	<script src="/js/angular-animate.min.js"></script>
+  	<script src="/js/angular-route.min.js"></script>
+  	<script src="/js/suonos.app.js"></script>
+	
+</body>
+</html>
